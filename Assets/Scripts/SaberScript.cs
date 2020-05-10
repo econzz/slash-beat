@@ -13,7 +13,7 @@ public class SaberScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public bool checkCollision()
     {
         RaycastHit hit;
 
@@ -21,9 +21,21 @@ public class SaberScript : MonoBehaviour
         {
             if (Vector3.Angle(transform.position - previousPosition, hit.transform.up) > 130)
             {
+                SoundManagerScript.PlaySound(SoundManagerScript.SFX.HIT);
                 Destroy(hit.transform.gameObject);
+                return true;
+                
+                
+//                CubeCutScript.Cut(hit.transform,transform.position);
+            }
+            else
+            {
+                SoundManagerScript.PlaySound(SoundManagerScript.SFX.MISS);
+                return false;
+                
             }
         }
         previousPosition = transform.position;
+        return false;
     }
 }
